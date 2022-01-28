@@ -1,2 +1,6 @@
 Flask
 gunicorn
+authlib
+requests
+flask-security-too
+peewee
