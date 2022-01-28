@@ -13,11 +13,13 @@ class BaseModel(db_wrapper.Model):
 class Day(BaseModel):
     date = pw.DateField(unique=True)
     notes = pw.CharField(null=True)
-    alcool_doses = pw.IntegerField(null=True)
+    alcohol_doses = pw.IntegerField(null=True)
     mood = pw.IntegerField(null=True)
     tiredness_morning = pw.IntegerField(null=True)
     tiredness_evening = pw.IntegerField(null=True)
     nap_minutes = pw.IntegerField(null=True)
+    office = pw.BooleanField(null=True)
+    vacation = pw.BooleanField(null=True)
     # last night
     sleep_score = pw.IntegerField(null=True)
     sleep_feeling = pw.IntegerField(null=True)

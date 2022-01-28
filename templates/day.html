@@ -1,0 +1,117 @@
+{% extends "layout_header.html" %}
+
+{% block content %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('day_view', day=day.date|datedelta(-1)) }}">
+                &laquo; {{ day.date|datedelta(-1) }}
+            </a>
+        </li>
+        <li class="page-item active">
+            <span class="page-link">{{ day.date }}</span>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('day_view', day=day.date|datedelta(1)) }}">
+                {{ day.date|datedelta(1) }} &raquo;
+            </a>
+        </li>
+    </ul>
+</nav>
+<form method="POST">
+    <div class="mb-3">
+        <legend for="tiredness_morning" class="form-label col-form-label-lg">Fatigue matin</legend>
+        <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="tiredness_morning" id="tiredness_morning-1" value="1"
+                {% if day.tiredness_morning == 1 %}checked{% endif %}>
+            <label class="form-check-label" for="tiredness_morning-1">👎</label>
+          </div>
+          <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="tiredness_morning" id="tiredness_morning-2" value="2"
+                {% if day.tiredness_morning == 2 %}checked{% endif %}>
+            <label class="form-check-label" for="tiredness_morning-2">🤷</label>
+          </div>
+          <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="tiredness_morning" id="tiredness_morning-5" value="5"
+                {% if day.tiredness_morning == 5 %}checked{% endif %}>
+            <label class="form-check-label" for="tiredness_morning-5">👍</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <legend for="mood" class="form-label col-form-label-lg">Humeur</legend>
+        <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="mood" id="mood-1" value="1"
+                {% if day.mood == 1 %}checked{% endif %}>
+            <label class="form-check-label" for="mood-1">🙁</label>
+          </div>
+          <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="mood" id="mood-2" value="2"
+                {% if day.mood == 2 %}checked{% endif %}>
+
+            <label class="form-check-label" for="mood-2">🤷</label>
+          </div>
+          <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="mood" id="mood-5" value="5"
+                {% if day.mood == 5 %}checked{% endif %}>
+            <label class="form-check-label" for="mood-5">😀</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <legend for="tiredness_evening" class="form-label col-form-label-lg">Fatigue soir</legend>
+        <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="tiredness_evening" id="tiredness_evening-1" value="1"
+                {% if day.tiredness_evening == 1 %}checked{% endif %}>
+            <label class="form-check-label" for="tiredness_evening-1">👎</label>
+          </div>
+          <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="tiredness_evening" id="tiredness_evening-2" value="2"
+                {% if day.tiredness_evening == 2 %}checked{% endif %}>
+            <label class="form-check-label" for="tiredness_evening-2">🤷</label>
+          </div>
+          <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="radio" name="tiredness_evening" id="tiredness_evening-5" value="5"
+                {% if day.tiredness_evening == 5 %}checked{% endif %}>
+            <label class="form-check-label" for="tiredness_evening-5">👍</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="checkbox" value="yes" id="office"
+                {% if day.office %}checked{% endif %}>
+            <label class="form-check-label" for="office">
+                Bureau
+            </label>
+        </div>
+        <div class="form-check form-check-inline custom-lg">
+            <input class="form-check-input" type="checkbox" value="yes" id="vacation"
+                {% if day|is_vacation %}checked{% endif %}>
+            <label class="form-check-label" for="vacation">
+                Vacances
+            </label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="alcohol_doses" class="form-label col-form-label-lg">Alcool (doses)</label>
+        <input value="{{ day.alcohol_doses }}" class="form-control form-control-lg" id="alcohol_doses" type="number" name="alcohol_doses">
+    </div>
+    <div class="mb-3">
+        <label for="nap_minutes" class="form-label col-form-label-lg">Sieste (minutes)</label>
+        <input value="{{ day.nap_minutes }}" class="form-control form-control-lg" id="nap_minutes" type="number" name="nap_minutes">
+    </div>
+    <div class="mb-3">
+        <label for="notes" class="form-label col-form-label-lg">Notes</label>
+        <textarea class="form-control form-control-lg" id="notes" name="notes" rows="3">{% if day.notes %}{{ day.notes }}{% endif %}</textarea>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+<style>
+.custom-lg {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    padding-left: 1.875rem;
+}
+</style>
+{% endblock %}
