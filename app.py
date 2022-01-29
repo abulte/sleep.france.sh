@@ -1,10 +1,10 @@
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, render_template, url_for, session, redirect, request
 
 from cli import bp as cli_bp
-from models import Day, init_app as init_models
+from models import Day, Sleep, init_app as init_models
 from utils import ISODateConverter
 
 app = Flask(__name__)
@@ -71,6 +71,41 @@ def day_view(day):
         return redirect(request.url)
 
     return render_template("day.html", day=day, today=date.today())
+
+
+@app.route("/api/sleep/garmin", methods=["POST"])
+def api_sleep_garmin():
+    data = request.json
+    if not data or not data.get("sleeps"):
+        app.logger.error(f"Malformed data: {request.text}")
+        return "No sleeps json found", 400
+
+    # TODO: link to user first (through token?)
+
+    for sleep in data["sleeps"]:
+        day = sleep["calendarDate"]
+        day = Day.get_or_create(day, autosave=True)
+        try:
+            start = datetime.fromtimestamp(sleep["startTimeInSeconds"])
+            end = start + timedelta(seconds=sleep["durationInSeconds"])
+            kwargs = {
+                "duration_total":  sleep["durationInSeconds"],
+                "duration_rem":  sleep["remSleepInSeconds"],
+                "duration_deep":  sleep["deepSleepDurationInSeconds"],
+                "duration_awake":  sleep["awakeDurationInSeconds"],
+                "phases":  sleep["sleepLevelsMap"],
+                "start":  start,
+                "end":  end,
+                "offset": sleep["startTimeOffsetInSeconds"],
+            }
+        except ValueError as e:
+            app.logger.error(f"Missing data: {e}")
+            return "Missing data", 400
+        else:
+            sleep_obj = Sleep.create_or_update(day, kwargs)
+            app.logger.debug(f"Updated sleep {sleep_obj.id}")
+
+    return "ok", 200
 
 
 @app.template_filter('datedelta')

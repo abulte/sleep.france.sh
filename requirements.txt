@@ -4,3 +4,4 @@ authlib
 requests
 flask-security-too
 peewee
+psycopg2-binary
