@@ -1,6 +1,7 @@
 import os
 
 SECRET_KEY = os.environ.get("FLASK_SECRET_KEY")
+DATABASE = os.environ.get("DATABASE_URL", "sqlite:///sleep.db")
 
 GARMIN_CLIENT_ID = os.environ.get("GARMIN_CLIENT_ID")
 GARMIN_CLIENT_SECRET = os.environ.get("GARMIN_CLIENT_SECRET")

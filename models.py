@@ -1,5 +1,3 @@
-import os
-
 import peewee as pw
 from playhouse.flask_utils import FlaskDB
 
@@ -25,9 +23,15 @@ class Day(BaseModel):
     sleep_feeling = pw.IntegerField(null=True)
     # end last night
 
+    @classmethod
+    def get_or_create(cls, day):
+        try:
+            return cls.get(date=day)
+        except cls.DoesNotExist:
+            return cls(date=day)
+
 
 def init_app(app):
-    app.config["DATABASE"] = os.environ.get("DATABASE_URL", "sqlite:///sleep.db")
     db_wrapper.init_app(app)
     return app
 

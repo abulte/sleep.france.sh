@@ -2,10 +2,10 @@ from datetime import date, timedelta
 
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, render_template, url_for, session, redirect, request
-from werkzeug.exceptions import NotFound
 
-from models import Day, init_app as init_models
 from cli import bp as cli_bp
+from models import Day, init_app as init_models
+from utils import ISODateConverter
 
 app = Flask(__name__)
 app.config.from_pyfile("settings.py")
@@ -15,6 +15,8 @@ oauth.register("garmin", fetch_token=lambda: session.get("token"))
 
 init_models(app)
 app.register_blueprint(cli_bp)
+
+app.url_map.converters["isodate"] = ISODateConverter
 
 
 @app.route("/")
@@ -42,22 +44,17 @@ def authorize():
     return redirect("/")
 
 
-# FIXME: custom url converter
-@app.route("/day/<day>", methods=["GET", "POST"])
-def day_view(day):
-    try:
-        day = date.fromisoformat(day)
-    except ValueError:
-        raise NotFound
+@app.route("/day/today")
+def today():
+    return redirect(url_for("day_view", day=date.today().isoformat()))
 
-    # FIXME: model fn
-    try:
-        day = Day.get(date=day)
-    except Day.DoesNotExist:
-        day = Day(date=day)
+
+@app.route("/day/<isodate:day>", methods=["GET", "POST"])
+def day_view(day):
+    day = Day.get_or_create(day)
 
     if request.method == "POST":
-        # save "proxy" Day if needed
+        # save "proxy" freshly created Day if needed
         if day.is_dirty():
             day.save()
         kwargs = {
@@ -73,7 +70,7 @@ def day_view(day):
         Day.update(**kwargs).where(Day.id == day.id).execute()
         return redirect(request.url)
 
-    return render_template("day.html", day=day)
+    return render_template("day.html", day=day, today=date.today())
 
 
 @app.template_filter('datedelta')
@@ -89,8 +86,6 @@ def is_vacation(day):
     - by default, when weekend
     Else, not.
     """
-    # FIXME: there's a -1 day delta here I don't understand
-    # (should be in [6, 7] in iso and works in shell)
-    if day.vacation is None and day.date.isoweekday() in [5, 6]:
+    if day.vacation is None and day.date.isoweekday() in [6, 7]:
         return True
     return day.vacation
