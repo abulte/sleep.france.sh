@@ -5,15 +5,15 @@
     <ul class="pagination justify-content-center mb-0">
         <li class="page-item">
             <a class="page-link" href="{{ url_for('day_view', day=day.date|datedelta(-1)) }}">
-                &laquo; {{ day.date|datedelta(-1) }}
+                &laquo;
             </a>
         </li>
-        <li class="page-item active">
+        <li class="page-item {% if day.date == today %}active{% endif %}">
             <span class="page-link">{{ day.date }}</span>
         </li>
         <li class="page-item">
             <a class="page-link" href="{{ url_for('day_view', day=day.date|datedelta(1)) }}">
-                {{ day.date|datedelta(1) }} &raquo;
+                &raquo;
             </a>
         </li>
     </ul>
@@ -109,12 +109,4 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
-
-<style>
-.custom-lg {
-    font-size: 1.25rem;
-    line-height: 1.5;
-    padding-left: 1.875rem;
-}
-</style>
 {% endblock %}
