@@ -3,6 +3,8 @@ import os
 SECRET_KEY = os.environ.get("FLASK_SECRET_KEY")
 DATABASE = os.environ.get("DATABASE_URL")
 
+SECURITY_PASSWORD_SALT = os.environ.get("FLASK_SECRET_KEY")
+
 GARMIN_CLIENT_ID = os.environ.get("GARMIN_CLIENT_ID")
 GARMIN_CLIENT_SECRET = os.environ.get("GARMIN_CLIENT_SECRET")
 GARMIN_REQUEST_TOKEN_URL = "https://connectapi.garmin.com/oauth-service/oauth/request_token"  # noqa

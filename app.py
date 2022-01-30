@@ -2,6 +2,7 @@ from datetime import date, timedelta, datetime
 
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, render_template, url_for, session, redirect, request
+from flask_security import Security
 
 from cli import bp as cli_bp
 from models import Day, Sleep, init_app as init_models
@@ -14,6 +15,7 @@ oauth = OAuth(app)
 oauth.register("garmin", fetch_token=lambda: session.get("token"))
 
 init_models(app)
+security = Security(app, app.user_datastore)
 app.register_blueprint(cli_bp)
 
 app.url_map.converters["isodate"] = ISODateConverter

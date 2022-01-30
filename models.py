@@ -1,6 +1,6 @@
 import peewee as pw
 
-from flask_security import UserMixin
+from flask_security import UserMixin, RoleMixin, PeeweeUserDatastore
 from playhouse.flask_utils import FlaskDB
 from playhouse.postgres_ext import BinaryJSONField
 
@@ -11,13 +11,29 @@ class BaseModel(db_wrapper.Model):
     pass
 
 
+class Role(RoleMixin, BaseModel):
+    name = pw.CharField(unique=True)
+    description = pw.TextField(null=True)
+    permissions = pw.TextField(null=True)
+
+
 class User(UserMixin, BaseModel):
-    token = pw.CharField()
+    token = pw.CharField(null=True)
     email = pw.TextField()
     password = pw.TextField()
     active = pw.BooleanField(default=True)
     fs_uniquifier = pw.TextField(null=False)
     confirmed_at = pw.DateTimeField(null=True)
+
+
+class UserRoles(BaseModel):
+    user = pw.ForeignKeyField(User, related_name='roles')
+    role = pw.ForeignKeyField(Role, related_name='users')
+    name = property(lambda self: self.role.name)
+    description = property(lambda self: self.role.description)
+
+    def get_permissions(self):
+        return self.role.get_permissions()
 
 
 class Day(BaseModel):
@@ -74,10 +90,11 @@ class Sleep(BaseModel):
 
 def init_app(app):
     db_wrapper.init_app(app)
+    app.user_datastore = PeeweeUserDatastore(db_wrapper, User, Role, UserRoles)
     return app
 
 
 def init_db():
     db_wrapper.database.connect()
-    db_wrapper.database.create_tables([Day, User, Sleep])
+    db_wrapper.database.create_tables([Day, User, Sleep, Role, UserRoles])
     print("DB inited.")
