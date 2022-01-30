@@ -1,0 +1,16 @@
+{% extends "layout_header.html" %}
+
+{% block content %}
+<section class="mb-3">
+    <h2>Informations</h2>
+    {{ current_user.email }}
+</section>
+<section class="mb-3">
+    <h2>Garmin connect</h2>
+    {% if not current_user.token.get("garmin") %}
+    <a href="{{ url_for('login_oauth', provider='garmin') }}" type="button" class="btn btn-success">Connexion</a>
+    {% else %}
+    <a type="button" class="btn btn-danger">Déconnexion</a>
+    {% endif %}
+</section>
+{% endblock %}

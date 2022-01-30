@@ -1,6 +1,6 @@
 import peewee as pw
 
-from flask_security import UserMixin, RoleMixin, PeeweeUserDatastore
+from flask_security import UserMixin, RoleMixin, PeeweeUserDatastore, current_user
 from playhouse.flask_utils import FlaskDB
 from playhouse.postgres_ext import BinaryJSONField
 
@@ -18,12 +18,16 @@ class Role(RoleMixin, BaseModel):
 
 
 class User(UserMixin, BaseModel):
-    token = pw.CharField(null=True)
     email = pw.TextField()
     password = pw.TextField()
     active = pw.BooleanField(default=True)
     fs_uniquifier = pw.TextField(null=False)
     confirmed_at = pw.DateTimeField(null=True)
+    token = BinaryJSONField(default={})
+
+    @classmethod
+    def fetch_token(cls, name):
+        return current_user.token.get(name)
 
 
 class UserRoles(BaseModel):

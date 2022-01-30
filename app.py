@@ -1,18 +1,18 @@
 from datetime import date, timedelta, datetime
 
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, render_template, url_for, session, redirect, request
-from flask_security import Security
+from flask import Flask, render_template, url_for, redirect, request
+from flask_security import Security, auth_required, current_user
 
 from cli import bp as cli_bp
-from models import Day, Sleep, init_app as init_models
+from models import Day, Sleep, User, init_app as init_models
 from utils import ISODateConverter
 
 app = Flask(__name__)
 app.config.from_pyfile("settings.py")
 
 oauth = OAuth(app)
-oauth.register("garmin", fetch_token=lambda: session.get("token"))
+oauth.register("garmin", fetch_token=User.fetch_token)
 
 init_models(app)
 security = Security(app, app.user_datastore)
@@ -31,19 +31,27 @@ def legal():
     return render_template("legal.html")
 
 
-@app.route("/login")
-def login():
-    redirect_uri = url_for("authorize", _external=True)
-    return oauth.garmin.authorize_redirect(redirect_uri)
+@app.route("/login/<provider>")
+@auth_required()
+def login_oauth(provider):
+    redirect_uri = url_for("authorize", provider=provider, _external=True)
+    return getattr(oauth, provider).authorize_redirect(redirect_uri)
 
 
-@app.route("/authorize")
-def authorize():
-    token = oauth.garmin.authorize_access_token()
-    # FIXME:
-    session["token"] = token
-    # do something with the token and profile
-    return redirect("/")
+@app.route("/authorize/<provider>")
+@auth_required()
+def authorize(provider):
+    token = getattr(oauth, provider).authorize_access_token()
+    app.logger.debug(f"Got authorize token: {token}")
+    current_user.token[provider] = token
+    current_user.save()
+    return redirect(url_for("account"))
+
+
+@app.route("/account")
+@auth_required()
+def account():
+    return render_template("account.html")
 
 
 @app.route("/day/today")
