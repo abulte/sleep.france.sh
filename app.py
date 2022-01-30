@@ -90,12 +90,16 @@ def api_sleep_garmin():
         app.logger.error(f"Malformed data: {request.text}")
         return "No sleeps json found", 400
 
-    # TODO: link to user first (through token?)
-
     for sleep in data["sleeps"]:
-        day = sleep["calendarDate"]
-        day = Day.get_or_create(day, autosave=True)
         try:
+            user = User.get(
+                User.token["garmin"]["oauth_token"] == sleep["userAccessToken"]
+            )
+        except (User.DoesNotExist, ValueError):
+            app.logger.error(f"No user found for sleep {sleep}")
+            continue
+        try:
+            day = Day.get_or_create(sleep["calendarDate"], user, autosave=True)
             start = datetime.fromtimestamp(sleep["startTimeInSeconds"])
             end = start + timedelta(seconds=sleep["durationInSeconds"])
             kwargs = {
@@ -112,10 +116,10 @@ def api_sleep_garmin():
             app.logger.error(f"Missing data: {e}")
             return "Missing data", 400
         else:
-            sleep_obj = Sleep.create_or_update(day, kwargs)
+            sleep_obj = Sleep.create_or_update(day, "garmin", kwargs)
             app.logger.debug(f"Updated sleep {sleep_obj.id}")
 
-    return "ok", 200
+    return "thanks :-)", 200
 
 
 @app.template_filter('datedelta')

@@ -41,6 +41,7 @@ class UserRoles(BaseModel):
 
 
 class Day(BaseModel):
+    user = pw.ForeignKeyField(User, backref="days")
     date = pw.DateField(unique=True)
     notes = pw.CharField(null=True)
     alcohol_doses = pw.IntegerField(null=True)
@@ -52,24 +53,23 @@ class Day(BaseModel):
     vacation = pw.BooleanField(null=True)
 
     @classmethod
-    def get_or_create(cls, day, autosave=False):
+    def get_or_create(cls, day, user, autosave=False):
+        kwargs = {
+            "user": user,
+            "date": day,
+        }
         try:
-            return cls.get(date=day)
+            return cls.get(**kwargs)
         except cls.DoesNotExist:
-            day = cls(date=day)
+            day = cls(**kwargs)
             if autosave:
                 day.save()
             return day
 
-    def get_sleep(self, autocreate=False):
-        sleep = self.sleeps.first()
-        if not sleep and autocreate:
-            sleep = Sleep(day=self)
-        return sleep
-
 
 class Sleep(BaseModel):
     day = pw.ForeignKeyField(Day, backref="sleeps")
+    provider = pw.CharField()
     duration_total = pw.IntegerField()
     duration_rem = pw.IntegerField()
     duration_deep = pw.IntegerField()
@@ -82,12 +82,12 @@ class Sleep(BaseModel):
     offset = pw.IntegerField()
 
     @classmethod
-    def create_or_update(cls, day, data: dict):
+    def create_or_update(cls, day, provider, data: dict):
         try:
-            sleep = cls.get(day=day)
+            sleep = cls.get(day=day, provider=provider)
             cls.update(**data).where(cls.id == sleep.id).execute()
         except cls.DoesNotExist:
-            sleep = cls(day=day, **data)
+            sleep = cls(day=day, provider=provider, **data)
             sleep.save()
         return sleep
 
