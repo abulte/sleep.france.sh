@@ -13,4 +13,14 @@
     <a type="button" class="btn btn-danger">Déconnexion</a>
     {% endif %}
 </section>
+<section class="mb-3">
+    <h2>Withings</h2>
+    {% if not current_user.token.get("withings") %}
+    <a href="{{ url_for('login_oauth', provider='withings') }}" type="button" class="btn btn-success">Connexion</a>
+    {% else %}
+    {{current_user.token.get("withings")}}
+    <a type="button" class="btn btn-danger">Déconnexion</a>
+    <a href="{{ url_for('login_oauth', provider='withings') }}" type="button" class="btn btn-success">Connexion</a>
+    {% endif %}
+</section>
 {% endblock %}

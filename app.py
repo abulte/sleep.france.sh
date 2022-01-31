@@ -13,6 +13,7 @@ app.config.from_pyfile("settings.py")
 
 oauth = OAuth(app)
 oauth.register("garmin", fetch_token=User.fetch_token)
+oauth.register("withings", fetch_token=User.fetch_token)
 
 init_models(app)
 security = Security(app, app.user_datastore)
@@ -41,7 +42,13 @@ def login_oauth(provider):
 @app.route("/authorize/<provider>")
 @auth_required()
 def authorize(provider):
-    token = getattr(oauth, provider).authorize_access_token()
+    kwargs = {}
+    if provider == "withings":
+        kwargs = {
+            "client_id": app.config["WITHINGS_CLIENT_ID"],
+            "client_secret": app.config["WITHINGS_CLIENT_SECRET"],
+        }
+    token = getattr(oauth, provider).authorize_access_token(**kwargs)
     app.logger.debug(f"Got authorize token: {token}")
     current_user.token[provider] = token
     current_user.save()
