@@ -1,13 +1,13 @@
-from datetime import date, timedelta, datetime
-
+from datetime import date, timedelta
 
 from flask import Flask, render_template, url_for, redirect, request
 from flask_security import Security, auth_required
 
 import oauth
 
+from api import bp as api_bp
 from cli import bp as cli_bp
-from models import Day, Sleep, User, init_app as init_models
+from models import Day, init_app as init_models
 from utils import ISODateConverter
 
 app = Flask(__name__)
@@ -18,6 +18,7 @@ init_models(app)
 oauth.init_app(app)
 security = Security(app, app.user_datastore)
 app.register_blueprint(cli_bp)
+app.register_blueprint(api_bp)
 
 app.url_map.converters["isodate"] = ISODateConverter
 
@@ -71,45 +72,6 @@ def day_view(day):
         return redirect(request.url)
 
     return render_template("day.html", day=day, today=date.today())
-
-
-@app.route("/api/sleep/garmin", methods=["POST"])
-def api_sleep_garmin():
-    data = request.json
-    if not data or not data.get("sleeps"):
-        app.logger.error(f"Malformed data: {request.text}")
-        return "No sleeps json found", 400
-
-    for sleep in data["sleeps"]:
-        try:
-            user = User.get(
-                User.token["garmin"]["oauth_token"] == sleep["userAccessToken"]
-            )
-        except (User.DoesNotExist, ValueError):
-            app.logger.error(f"No user found for sleep {sleep}")
-            continue
-        try:
-            day = Day.get_or_create(sleep["calendarDate"], user, autosave=True)
-            start = datetime.fromtimestamp(sleep["startTimeInSeconds"])
-            end = start + timedelta(seconds=sleep["durationInSeconds"])
-            kwargs = {
-                "duration_total":  sleep["durationInSeconds"],
-                "duration_rem":  sleep["remSleepInSeconds"],
-                "duration_deep":  sleep["deepSleepDurationInSeconds"],
-                "duration_awake":  sleep["awakeDurationInSeconds"],
-                "phases":  sleep["sleepLevelsMap"],
-                "start":  start,
-                "end":  end,
-                "offset": sleep["startTimeOffsetInSeconds"],
-            }
-        except ValueError as e:
-            app.logger.error(f"Missing data: {e}")
-            return "Missing data", 400
-        else:
-            sleep_obj = Sleep.create_or_update(day, "garmin", kwargs)
-            app.logger.debug(f"Updated sleep {sleep_obj.id}")
-
-    return "thanks :-)", 200
 
 
 @app.template_filter('datedelta')
