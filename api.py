@@ -50,7 +50,7 @@ def api_sleep_garmin():
 @bp.route("/stress/garmin", methods=["POST"])
 def api_stress_garmin():
     data = request.json
-    if not data or not data.get("stress"):
+    if not data or not data.get("stressDetails"):
         current_app.logger.error(f"Malformed data: {request.json}")
         return "No stress json found", 400
 
