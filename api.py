@@ -54,7 +54,7 @@ def api_stress_garmin():
         current_app.logger.error(f"Malformed data: {request.json}")
         return "No stress json found", 400
 
-    for stress in data["stress"]:
+    for stress in data["stressDetails"]:
         try:
             user = User.get(
                 User.token["garmin"]["oauth_token"] == stress["userAccessToken"]
