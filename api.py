@@ -23,6 +23,12 @@ def api_sleep_garmin():
         except (User.DoesNotExist, KeyError):
             current_app.logger.error(f"No user found for sleep {sleep}")
             continue
+        # FIXME: use those w/o too? apparently they're not daily and have different values
+        # maybe triggered by enabling stress endpoint (since they are stress values in there)
+        # cf data/non-daily-sleep-payload.json
+        if not sleep.get("calendarDate"):
+            current_app.logger.info("Ignoring sleep payload w/o calendarDate: {sleep}")
+            continue
         try:
             day = Day.get_or_create(sleep["calendarDate"], user, autosave=True)
             start = datetime.fromtimestamp(sleep["startTimeInSeconds"])
@@ -61,6 +67,10 @@ def api_stress_garmin():
             )
         except (User.DoesNotExist, KeyError):
             current_app.logger.error(f"No user found for stress {stress}")
+            continue
+        # FIXME: check if we have those for stress
+        if not stress.get("calendarDate"):
+            current_app.logger.info("Ignoring stress payload w/o calendarDate: {sleep}")
             continue
         try:
             day = Day.get_or_create(stress["calendarDate"], user, autosave=True)
