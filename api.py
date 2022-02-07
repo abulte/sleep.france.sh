@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from flask import Blueprint, request, current_app
 
-from models import Sleep, User, Day
+from models import Sleep, User, Day, Stress
 
 
 bp = Blueprint("api", __name__, url_prefix="/api")
@@ -43,5 +43,42 @@ def api_sleep_garmin():
         else:
             sleep_obj = Sleep.create_or_update(day, "garmin", kwargs)
             current_app.logger.debug(f"Updated sleep {sleep_obj.id}")
+
+    return "thanks :-)", 200
+
+
+@bp.route("/stress/garmin", methods=["POST"])
+def api_stress_garmin():
+    data = request.json
+    if not data or not data.get("stress"):
+        current_app.logger.error(f"Malformed data: {request.json}")
+        return "No stress json found", 400
+
+    for stress in data["stress"]:
+        try:
+            user = User.get(
+                User.token["garmin"]["oauth_token"] == stress["userAccessToken"]
+            )
+        except (User.DoesNotExist, ValueError):
+            current_app.logger.error(f"No user found for stress {stress}")
+            continue
+        try:
+            day = Day.get_or_create(stress["calendarDate"], user, autosave=True)
+            start = datetime.fromtimestamp(stress["startTimeInSeconds"])
+            end = start + timedelta(seconds=stress["durationInSeconds"])
+            kwargs = {
+                "duration_total":  stress["durationInSeconds"],
+                "stress_values": stress["timeOffsetStressLevelValues"],
+                "battery_values": stress["timeOffsetBodyBatteryValues"],
+                "start":  start,
+                "end":  end,
+                "offset": stress["startTimeOffsetInSeconds"],
+            }
+        except ValueError as e:
+            current_app.logger.error(f"Missing data: {e}")
+            return "Missing data", 400
+        else:
+            stress_obj = Stress.create_or_update(day, kwargs)
+            current_app.logger.debug(f"Updated stress {stress_obj.id}")
 
     return "thanks :-)", 200

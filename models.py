@@ -92,6 +92,28 @@ class Sleep(BaseModel):
         return sleep
 
 
+class Stress(BaseModel):
+    day = pw.ForeignKeyField(Day, backref="stresses")
+    provider = pw.CharField()
+    duration_total = pw.IntegerField()
+    stress_values = BinaryJSONField(default={})
+    battery_values = BinaryJSONField(default={})
+    # UTC
+    start = pw.DateTimeField()
+    end = pw.DateTimeField()
+    offset = pw.IntegerField()
+
+    @classmethod
+    def create_or_update(cls, day, data: dict, provider="garmin"):
+        try:
+            stress = cls.get(day=day, provider=provider)
+            cls.update(**data).where(cls.id == stress.id).execute()
+        except cls.DoesNotExist:
+            stress = cls(day=day, provider=provider, **data)
+            stress.save()
+        return stress
+
+
 def init_app(app):
     db_wrapper.init_app(app)
     app.user_datastore = PeeweeUserDatastore(db_wrapper, User, Role, UserRoles)
@@ -100,5 +122,5 @@ def init_app(app):
 
 def init_db():
     db_wrapper.database.connect()
-    db_wrapper.database.create_tables([Day, User, Sleep, Role, UserRoles])
+    db_wrapper.database.create_tables([Day, User, Sleep, Role, UserRoles, Stress])
     print("DB inited.")
