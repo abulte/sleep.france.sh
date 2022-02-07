@@ -20,7 +20,7 @@ def api_sleep_garmin():
             user = User.get(
                 User.token["garmin"]["oauth_token"] == sleep["userAccessToken"]
             )
-        except (User.DoesNotExist, ValueError):
+        except (User.DoesNotExist, KeyError):
             current_app.logger.error(f"No user found for sleep {sleep}")
             continue
         try:
@@ -37,8 +37,8 @@ def api_sleep_garmin():
                 "end":  end,
                 "offset": sleep["startTimeOffsetInSeconds"],
             }
-        except ValueError as e:
-            current_app.logger.error(f"Missing data: {e}")
+        except KeyError as e:
+            current_app.logger.error(f"Missing data: {e} — {sleep}")
             return "Missing data", 400
         else:
             sleep_obj = Sleep.create_or_update(day, "garmin", kwargs)
@@ -59,7 +59,7 @@ def api_stress_garmin():
             user = User.get(
                 User.token["garmin"]["oauth_token"] == stress["userAccessToken"]
             )
-        except (User.DoesNotExist, ValueError):
+        except (User.DoesNotExist, KeyError):
             current_app.logger.error(f"No user found for stress {stress}")
             continue
         try:
@@ -74,8 +74,8 @@ def api_stress_garmin():
                 "end":  end,
                 "offset": stress["startTimeOffsetInSeconds"],
             }
-        except ValueError as e:
-            current_app.logger.error(f"Missing data: {e}")
+        except KeyError as e:
+            current_app.logger.error(f"Missing data: {e} — {stress}")
             return "Missing data", 400
         else:
             stress_obj = Stress.create_or_update(day, kwargs)
