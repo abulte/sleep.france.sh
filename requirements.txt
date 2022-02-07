@@ -6,3 +6,4 @@ flask-security-too
 peewee
 psycopg2-binary
 bcrypt
+blinker

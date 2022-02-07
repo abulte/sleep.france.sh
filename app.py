@@ -1,8 +1,10 @@
 from datetime import date, timedelta, datetime
 
-from authlib.integrations.flask_client import OAuth
+
 from flask import Flask, render_template, url_for, redirect, request
-from flask_security import Security, auth_required, current_user
+from flask_security import Security, auth_required
+
+import oauth
 
 from cli import bp as cli_bp
 from models import Day, Sleep, User, init_app as init_models
@@ -11,11 +13,9 @@ from utils import ISODateConverter
 app = Flask(__name__)
 app.config.from_pyfile("settings.py")
 
-oauth = OAuth(app)
-oauth.register("garmin", fetch_token=User.fetch_token)
-oauth.register("withings", fetch_token=User.fetch_token)
 
 init_models(app)
+oauth.init_app(app)
 security = Security(app, app.user_datastore)
 app.register_blueprint(cli_bp)
 
@@ -32,32 +32,15 @@ def legal():
     return render_template("legal.html")
 
 
-@app.route("/login/<provider>")
-@auth_required()
-def login_oauth(provider):
-    redirect_uri = url_for("authorize", provider=provider, _external=True)
-    return getattr(oauth, provider).authorize_redirect(redirect_uri)
-
-
-@app.route("/authorize/<provider>")
-@auth_required()
-def authorize(provider):
-    kwargs = {}
-    if provider == "withings":
-        kwargs = {
-            "client_id": app.config["WITHINGS_CLIENT_ID"],
-            "client_secret": app.config["WITHINGS_CLIENT_SECRET"],
-        }
-    token = getattr(oauth, provider).authorize_access_token(**kwargs)
-    app.logger.debug(f"Got authorize token: {token}")
-    current_user.token[provider] = token
-    current_user.save()
-    return redirect(url_for("account"))
-
-
 @app.route("/account")
 @auth_required()
 def account():
+    r = oauth.oauth.withings.post("sleep", data={
+        "action": "getsummary",
+        "startdateymd": "2022-01-30",
+        "enddateymd": "2022-01-31",
+    })
+    print('resp', r.json())
     return render_template("account.html")
 
 

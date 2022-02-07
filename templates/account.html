@@ -7,20 +7,20 @@
 </section>
 <section class="mb-3">
     <h2>Garmin connect</h2>
-    {% if not current_user.token.get("garmin") %}
-    <a href="{{ url_for('login_oauth', provider='garmin') }}" type="button" class="btn btn-success">Connexion</a>
+    {% if not current_user.token.garmin %}
+    <a href="{{ url_for('oauth.login_oauth', provider='garmin') }}" type="button" class="btn btn-success">Connexion</a>
     {% else %}
     <a type="button" class="btn btn-danger">Déconnexion</a>
+    <details><code>{{ current_user.token.garmin }}</code></details>
     {% endif %}
 </section>
 <section class="mb-3">
     <h2>Withings</h2>
-    {% if not current_user.token.get("withings") %}
-    <a href="{{ url_for('login_oauth', provider='withings') }}" type="button" class="btn btn-success">Connexion</a>
+    {% if not current_user.token.withings %}
+    <a href="{{ url_for('oauth.login_oauth', provider='withings') }}" type="button" class="btn btn-success">Connexion</a>
     {% else %}
-    {{current_user.token.get("withings")}}
     <a type="button" class="btn btn-danger">Déconnexion</a>
-    <a href="{{ url_for('login_oauth', provider='withings') }}" type="button" class="btn btn-success">Connexion</a>
+    <details><code>{{ current_user.token.withings }}</code></details>
     {% endif %}
 </section>
 {% endblock %}

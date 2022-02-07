@@ -18,5 +18,5 @@ WITHINGS_AUTHORIZE_URL = "https://account.withings.com/oauth2_user/authorize2"
 WITHINGS_AUTHORIZE_PARAMS = {
     "scope": "user.activity",
 }
-WITHINGS_ACCESS_TOKEN_URL = " https://account.withings.com/oauth2/token"  # noqa
-WITHINGS_API_BASE_URL = "https://wbsapi.withings.net/v2/sleep/"
+WITHINGS_ACCESS_TOKEN_URL = "https://account.withings.com/oauth2/token"  # noqa
+WITHINGS_API_BASE_URL = "https://wbsapi.withings.net/v2/"
