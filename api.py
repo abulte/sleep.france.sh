@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 from flask import Blueprint, request, current_app
+from pytz import timezone, utc
 
 from models import Sleep, User, Day, Stress
 
@@ -23,9 +24,9 @@ def api_sleep_garmin():
         except (User.DoesNotExist, KeyError):
             current_app.logger.error(f"No user found for sleep {sleep}")
             continue
-        # FIXME: use those w/o too? apparently they're not daily and have different values
+        # FIXME: use those w/o calendarDate too? apparently they're not daily and have different values
         # maybe triggered by enabling stress endpoint (since they are stress values in there)
-        # cf data/non-daily-sleep-payload.json
+        # cf `data/non-daily-sleep-payload.json`
         if not sleep.get("calendarDate"):
             current_app.logger.info("Ignoring sleep payload w/o calendarDate: {sleep}")
             continue
@@ -92,3 +93,44 @@ def api_stress_garmin():
             current_app.logger.debug(f"Updated stress {stress_obj.id}")
 
     return "thanks :-)", 200
+
+
+def api_sleep_withings():
+    """Not a real route, called from oauth.authorize for `notify` pattern"""
+    # circular dep (sorry)
+    from oauth import session_for_user
+    user_id = request.form["userid"]
+    start = request.form["startdate"]
+    user = User.get(User.token["withings"]["userid"] == user_id)
+    data = {
+        "action": "getsummary",
+        "lastupdate": start,
+    }
+    current_app.logger.debug(data)
+    with session_for_user(user) as _oauth:
+        r = _oauth.withings.post("v2/sleep", data=data)
+    r.raise_for_status()
+
+    # cf `withings-sleep-details-payload.json`
+    data = r.json()
+    if data.get("status") != 0:
+        raise Exception(f"api_sleep_withings went wrong: {data}")
+
+    for serie in data.get("body", {}).get("series", []):
+        day = Day.get_or_create(serie["date"], user, autosave=True)
+        tz = timezone(serie["timezone"])
+        start = datetime.fromtimestamp(serie["startdate"], tz=tz)
+        end = datetime.fromtimestamp(serie["enddate"], tz=tz)
+        kwargs = {
+            "duration_total":  serie["data"]["total_timeinbed"],
+            "duration_rem":  serie["data"]["remsleepduration"],
+            "duration_deep":  serie["data"]["deepsleepduration"],
+            "duration_awake":  serie["data"]["wakeupduration"],
+            "start": start.astimezone(utc),
+            "end": end.astimezone(utc),
+            "offset": start.utcoffset().seconds,
+        }
+        sleep_obj = Sleep.create_or_update(day, "withings", kwargs)
+        current_app.logger.debug(f"Updated sleep {sleep_obj.id}")
+
+    return "ok", 200

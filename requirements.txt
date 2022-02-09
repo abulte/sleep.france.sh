@@ -7,3 +7,4 @@ peewee
 psycopg2-binary
 bcrypt
 blinker
+pytz

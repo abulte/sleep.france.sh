@@ -21,3 +21,13 @@ def create_user(email, password):
     if not ds.find_user(email=email):
         ds.create_user(email=email, password=hash_password(password))
         print("User created.")
+
+
+@bp.cli.command("delete-token")
+@click.argument("email")
+@click.argument("provider")
+def delete_token(email, provider):
+    user = models.User.get(email=email)
+    user.token.pop(provider, None)
+    print(user.token)
+    user.save()

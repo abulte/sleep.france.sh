@@ -36,13 +36,17 @@ def legal():
 @app.route("/account")
 @auth_required()
 def account():
-    r = oauth.oauth.withings.post("sleep", data={
-        "action": "getsummary",
-        "startdateymd": "2022-01-30",
-        "enddateymd": "2022-01-31",
-    })
-    print('resp', r.json())
     return render_template("account.html")
+
+
+@app.route("/debug")
+@auth_required()
+def debug_page():
+    r = oauth.oauth.withings.post("notify", data={
+        "action": "list",
+        # "appli": 44,
+    })
+    return render_template("debug.html", payload=r.json())
 
 
 @app.route("/day/today")

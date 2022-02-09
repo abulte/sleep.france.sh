@@ -1,0 +1,13 @@
+{% extends "layout_header.html" %}
+
+{% block content %}
+<section class="mb-3">
+    <h2>Informations</h2>
+    {{ current_user.email }}
+</section>
+<section class="mb-3">
+    <code>{{ current_user.token }}</code>
+    <hr>
+    <code>{{ payload }}</code>
+</section>
+{% endblock %}
