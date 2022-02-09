@@ -1,0 +1,75 @@
+{% extends "layout_header.html" %}
+
+{% block content %}
+<nav aria-label="Date navigation" class="mb-3">
+    <ul class="pagination justify-content-center mb-0">
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('day_summary', day=day.date|datedelta(-1)) }}">
+                &laquo;
+            </a>
+        </li>
+        <li class="page-item {% if day.date == today %}active{% endif %}">
+            <span class="page-link">{{ day.date }}</span>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="{{ url_for('day_summary', day=day.date|datedelta(1)) }}">
+                &raquo;
+            </a>
+        </li>
+    </ul>
+    <div class="d-flex justify-content-center">
+        <small><a href="{{ url_for('day_summary', day=today) }}">Aujourd'hui</a></small>
+    </div>
+</nav>
+
+<canvas id="chart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js" integrity="sha256-eWGhq5jRZ5QSi+PQuJt0eg4+hGCTwtsR9Qo+mC6Lyco=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0/dist/chartjs-adapter-luxon.min.js" integrity="sha256-tOhXNe/Ue+TjR33s/CryFYOGMwNfkTjTuvM4LEOAHzc=" crossorigin="anonymous"></script>
+<script>
+{% if day.stresses %}
+{% set stress = day.stresses[0] %}
+{% set start = stress.start.timestamp()|int %}
+const ctx = document.getElementById('chart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            label: 'Battery',
+            data: [
+                {% for (ts, value) in stress.battery_values.items() %}
+                {
+                    x: {{ (start + ts|int) * 1000 }},
+                    y: {{ value }},
+                },
+                {% endfor %}
+            ],
+            backgroundColor: "blue",
+        }, {
+            label: 'Stress',
+            data: [
+                {% for (ts, value) in stress.stress_values.items() %}
+                {
+                    x: {{ (start + ts|int) * 1000 }},
+                    y: {{ value }},
+                },
+                {% endfor %}
+            ],
+            backgroundColor: "red",
+        }]
+    },
+    options: {
+        scales: {
+            x: {
+                type: 'time'
+            },
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+{% endif %}
+</script>
+{% endblock %}

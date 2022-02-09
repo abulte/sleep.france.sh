@@ -2,6 +2,7 @@ from datetime import date, timedelta
 
 from flask import Flask, render_template, url_for, redirect, request
 from flask_security import Security, auth_required
+from werkzeug.exceptions import NotFound
 
 import oauth
 
@@ -76,6 +77,16 @@ def day_view(day):
         return redirect(request.url)
 
     return render_template("day.html", day=day, today=date.today())
+
+
+@app.route("/day/summary/<isodate:day>")
+def day_summary(day):
+    try:
+        day = Day.get(date=day)
+    except Day.DoesNotExist:
+        raise NotFound
+
+    return render_template("day_summary.html", day=day, today=date.today())
 
 
 @app.template_filter('datedelta')
