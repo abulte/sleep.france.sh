@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
 from flask import Flask, render_template, url_for, redirect, request
-from flask_security import Security, auth_required
+from flask_security import Security, auth_required, current_user
 from werkzeug.exceptions import NotFound
 
 import oauth
@@ -51,13 +51,15 @@ def debug_page():
 
 
 @app.route("/day/today")
+@auth_required()
 def today():
-    return redirect(url_for("day_view", day=date.today().isoformat()))
+    return redirect(url_for("day_view", day=date.today()))
 
 
 @app.route("/day/<isodate:day>", methods=["GET", "POST"])
+@auth_required()
 def day_view(day):
-    day = Day.get_or_create(day)
+    day = Day.get_or_create(day, current_user)
 
     if request.method == "POST":
         # save "proxy" freshly created Day if needed
@@ -79,7 +81,14 @@ def day_view(day):
     return render_template("day.html", day=day, today=date.today())
 
 
+@app.route("/day/summary/today")
+@auth_required()
+def day_summary_today():
+    return redirect(url_for("day_summary", day=date.today()))
+
+
 @app.route("/day/summary/<isodate:day>")
+@auth_required()
 def day_summary(day):
     try:
         day = Day.get(date=day)
