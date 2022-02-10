@@ -9,7 +9,7 @@
             </a>
         </li>
         <li class="page-item {% if day.date == today %}active{% endif %}">
-            <span class="page-link">{{ day.date }}</span>
+            <span class="page-link">{{ day.date }}</span>
         </li>
         <li class="page-item">
             <a class="page-link" href="{{ url_for('day_summary', day=day.date|datedelta(1)) }}">

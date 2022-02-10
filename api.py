@@ -103,20 +103,31 @@ def api_sleep_withings():
     from oauth import session_for_user
     user_id = request.form["userid"]
     start = request.form["startdate"]
+    end = request.form["enddate"]
     user = User.get(User.token["withings"]["userid"] == user_id)
-    data = {
-        "action": "getsummary",
-        "lastupdate": start,
-    }
-    current_app.logger.debug(data)
-    with session_for_user(user) as _oauth:
-        r = _oauth.withings.post("v2/sleep", data=data)
-    r.raise_for_status()
 
-    # cf `withings-sleep-details-payload.json`
+    with session_for_user(user) as _oauth:
+        r = _oauth.withings.post("v2/sleep", data={
+            "action": "getsummary",
+            "lastupdate": start,
+        })
+        r_details = _oauth.withings.post("v2/sleep", data={
+            "startdate": start,
+            "enddate": end,
+            "action": "get",
+        })
+        r.raise_for_status()
+        r_details.raise_for_status()
+
+    # cf `withings-sleep-summary-payload.json`
     data = r.json()
     if data.get("status") != 0:
-        raise Exception(f"api_sleep_withings went wrong: {data}")
+        raise Exception(f"api_sleep_withings(summary) went wrong: {data}")
+
+    # cf `withings-sleep-details-payload.json`
+    details = r_details.json()
+    if details.get("status") != 0:
+        raise Exception(f"api_sleep_withings(details) went wrong: {details}")
 
     for serie in data.get("body", {}).get("series", []):
         day = Day.get_or_create(serie["date"], user, autosave=True)
@@ -131,6 +142,8 @@ def api_sleep_withings():
             "start": start.astimezone(utc),
             "end": end.astimezone(utc),
             "offset": start.utcoffset().seconds,
+            # we better _hope_ this is associated to the same date
+            "phases": details.get("body", {}).get("series", []),
         }
         sleep_obj = Sleep.create_or_update(day, "withings", kwargs)
         current_app.logger.debug(f"Updated sleep {sleep_obj.id}")
