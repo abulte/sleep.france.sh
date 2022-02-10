@@ -79,12 +79,14 @@ def api_stress_garmin():
             end = start + timedelta(seconds=stress["durationInSeconds"])
             kwargs = {
                 "duration_total":  stress["durationInSeconds"],
-                "stress_values": stress["timeOffsetStressLevelValues"],
-                "battery_values": stress["timeOffsetBodyBatteryValues"],
                 "start":  start,
                 "end":  end,
                 "offset": stress["startTimeOffsetInSeconds"],
             }
+            if stress_values := stress.get("timeOffsetStressLevelValues"):
+                kwargs["stress_values"] = stress_values
+            if battery_values := stress.get("timeOffsetBodyBatteryValues"):
+                kwargs["battery_values"] = battery_values
         except KeyError as e:
             current_app.logger.error(f"Missing data: {e} — {stress}")
             return "Missing data", 400
