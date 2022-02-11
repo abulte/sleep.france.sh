@@ -1,3 +1,5 @@
+import json
+
 from datetime import date, timedelta
 
 from flask import Flask, render_template, url_for, redirect, request
@@ -98,12 +100,12 @@ def day_summary(day):
     return render_template("day_summary.html", day=day, today=date.today())
 
 
-@app.template_filter('datedelta')
+@app.template_filter("datedelta")
 def datedelta(value, delta):
     return value + timedelta(days=delta)
 
 
-@app.template_filter('is_vacation')
+@app.template_filter("is_vacation")
 def is_vacation(day):
     """
     Vacation when:
@@ -114,3 +116,77 @@ def is_vacation(day):
     if day.vacation is None and day.date.isoweekday() in [6, 7]:
         return True
     return day.vacation
+
+
+@app.template_filter("sleep_phases")
+def sleep_phases(phases, provider):
+    """Datasets for chart"""
+    datasets = []
+    filled = fill_phases(phases, provider)
+    if provider == "withings":
+        config = [
+            {"name": "Awake", "color": "#F94144"},
+            {"name": "Léger", "color": "#F9C74F"},
+            {"name": "Profond", "color": "#277DA1"},
+            {"name": "REM", "color": "#F9844A"},
+            {"name": "Manuel", "color": "light-grey"},
+            {"name": "Non spécifié", "color": "white"},
+        ]
+        for (i, conf) in enumerate(config):
+            datasets.append({
+                "label": conf["name"],
+                "backgroundColor": conf["color"],
+                "barPercentage": 1,
+                "categoryPercentage": 1,
+                "inflateAmount": 1,
+                "data": [{"x": f["startdate"] * 1000, "y": 1} for f in filled if f["state"] == i],
+            })
+    elif provider == "garmin":
+        config = [
+            {"id": "awake", "name": "Awake", "color": "#F94144"},
+            {"id": "light", "name": "Léger", "color": "#F9C74F"},
+            {"id": "deep", "name": "Profond", "color": "#277DA1"},
+            {"id": "rem", "name": "REM", "color": "#F9844A"},
+        ]
+        datasets = []
+        for conf in config:
+            this_phase = phases.get(conf["id"], [])
+            data = []
+            for phase in this_phase:
+                current = phase["startTimeInSeconds"]
+                while current <= phase["endTimeInSeconds"]:
+                    data.append({
+                        "x": current * 1000,
+                        "y": 1
+                    })
+                    current += 60
+            datasets.append({
+                "label": conf["name"],
+                "backgroundColor": conf["color"],
+                "barPercentage": 1,
+                "categoryPercentage": 1,
+                "inflateAmount": 1,
+                "data": data,
+            })
+
+    return json.dumps(datasets)
+
+
+def fill_phases(values, provider):
+    if provider == "withings":
+        """Fill in increment of 1 minute to have a filled bar chart"""
+        _values = []
+        for value in values:
+            current_date = value["startdate"]
+            while current_date <= value["enddate"]:
+                # minutes increments
+                next_date = current_date + 60
+                _values.append({
+                    "startdate": current_date,
+                    "enddate": next_date,
+                    "state": value["state"],
+                })
+                current_date = next_date
+        return _values
+
+    return values

@@ -1,0 +1,45 @@
+<script>
+{% if day.stresses %}
+{% set stress = day.stresses[0] %}
+{% set start = stress.start.timestamp()|int %}
+const stressCtx = document.getElementById('stress_chart').getContext('2d');
+const stressChart = new Chart(stressCtx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            label: 'Battery',
+            data: [
+                {% for (ts, value) in stress.battery_values.items() %}
+                {
+                    x: {{ (start + ts|int) * 1000 }},
+                    y: {{ value }},
+                },
+                {% endfor %}
+            ],
+            backgroundColor: "blue",
+        }, {
+            label: 'Stress',
+            data: [
+                {% for (ts, value) in stress.stress_values.items() %}
+                {
+                    x: {{ (start + ts|int) * 1000 }},
+                    y: {{ value }},
+                },
+                {% endfor %}
+            ],
+            backgroundColor: "red",
+        }]
+    },
+    options: {
+        scales: {
+            x: {
+                type: 'time'
+            },
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+{% endif %}
+</script>

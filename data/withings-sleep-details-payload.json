@@ -1,0 +1,920 @@
+{
+  "status": 0,
+  "body": {
+    "series": [
+      {
+        "startdate": 1644268740,
+        "state": 0,
+        "enddate": 1644268860,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269340,
+        "state": 1,
+        "enddate": 1644269400,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644274740,
+        "state": 2,
+        "enddate": 1644275040,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644275040,
+        "state": 1,
+        "enddate": 1644275340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269400,
+        "state": 1,
+        "enddate": 1644269460,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644275340,
+        "state": 1,
+        "enddate": 1644275940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269460,
+        "state": 1,
+        "enddate": 1644269520,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644275940,
+        "state": 1,
+        "enddate": 1644276540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269520,
+        "state": 1,
+        "enddate": 1644269580,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644276540,
+        "state": 1,
+        "enddate": 1644276720,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644276720,
+        "state": 0,
+        "enddate": 1644277140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269580,
+        "state": 1,
+        "enddate": 1644269640,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644277140,
+        "state": 1,
+        "enddate": 1644277740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269640,
+        "state": 1,
+        "enddate": 1644269700,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644277740,
+        "state": 1,
+        "enddate": 1644278340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269700,
+        "state": 1,
+        "enddate": 1644269760,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644278340,
+        "state": 1,
+        "enddate": 1644278940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269760,
+        "state": 1,
+        "enddate": 1644269820,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644278940,
+        "state": 1,
+        "enddate": 1644279240,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644279240,
+        "state": 2,
+        "enddate": 1644279540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269820,
+        "state": 3,
+        "enddate": 1644269880,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644279540,
+        "state": 2,
+        "enddate": 1644280140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269880,
+        "state": 3,
+        "enddate": 1644269940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644280140,
+        "state": 2,
+        "enddate": 1644280260,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644280260,
+        "state": 1,
+        "enddate": 1644280740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644268860,
+        "state": 0,
+        "enddate": 1644268920,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269940,
+        "state": 3,
+        "enddate": 1644270000,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644280740,
+        "state": 1,
+        "enddate": 1644281340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270000,
+        "state": 3,
+        "enddate": 1644270060,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644281340,
+        "state": 1,
+        "enddate": 1644281940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270060,
+        "state": 3,
+        "enddate": 1644270120,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644281940,
+        "state": 1,
+        "enddate": 1644282540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270120,
+        "state": 3,
+        "enddate": 1644270180,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644282540,
+        "state": 1,
+        "enddate": 1644283140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270180,
+        "state": 3,
+        "enddate": 1644270240,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644283140,
+        "state": 3,
+        "enddate": 1644283740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270240,
+        "state": 3,
+        "enddate": 1644270300,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644283740,
+        "state": 3,
+        "enddate": 1644284340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270300,
+        "state": 3,
+        "enddate": 1644270360,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644284340,
+        "state": 3,
+        "enddate": 1644284400,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644284400,
+        "state": 1,
+        "enddate": 1644284940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270360,
+        "state": 3,
+        "enddate": 1644270420,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644284940,
+        "state": 1,
+        "enddate": 1644285540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270420,
+        "state": 3,
+        "enddate": 1644270480,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644285540,
+        "state": 1,
+        "enddate": 1644285900,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644285900,
+        "state": 2,
+        "enddate": 1644286140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270480,
+        "state": 3,
+        "enddate": 1644270540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644286140,
+        "state": 2,
+        "enddate": 1644286740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644268920,
+        "state": 0,
+        "enddate": 1644268980,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270540,
+        "state": 3,
+        "enddate": 1644270600,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644286740,
+        "state": 2,
+        "enddate": 1644286800,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644286800,
+        "state": 1,
+        "enddate": 1644287340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270600,
+        "state": 3,
+        "enddate": 1644270660,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644287340,
+        "state": 1,
+        "enddate": 1644287940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270660,
+        "state": 3,
+        "enddate": 1644270720,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644287940,
+        "state": 1,
+        "enddate": 1644288540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270720,
+        "state": 3,
+        "enddate": 1644270780,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644288540,
+        "state": 1,
+        "enddate": 1644289140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270780,
+        "state": 3,
+        "enddate": 1644270840,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644289140,
+        "state": 1,
+        "enddate": 1644289740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270840,
+        "state": 3,
+        "enddate": 1644270900,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644289740,
+        "state": 1,
+        "enddate": 1644290340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270900,
+        "state": 2,
+        "enddate": 1644270960,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644290340,
+        "state": 1,
+        "enddate": 1644290940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644270960,
+        "state": 2,
+        "enddate": 1644271020,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644290940,
+        "state": 1,
+        "enddate": 1644291540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271020,
+        "state": 2,
+        "enddate": 1644271080,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644291540,
+        "state": 1,
+        "enddate": 1644292140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271080,
+        "state": 2,
+        "enddate": 1644271140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644292140,
+        "state": 1,
+        "enddate": 1644292740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644268980,
+        "state": 0,
+        "enddate": 1644269040,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271140,
+        "state": 2,
+        "enddate": 1644271200,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644292740,
+        "state": 1,
+        "enddate": 1644293340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271200,
+        "state": 2,
+        "enddate": 1644271260,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644293340,
+        "state": 1,
+        "enddate": 1644293940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271260,
+        "state": 2,
+        "enddate": 1644271320,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644293940,
+        "state": 1,
+        "enddate": 1644294540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271320,
+        "state": 2,
+        "enddate": 1644271380,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644294540,
+        "state": 1,
+        "enddate": 1644294840,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644294840,
+        "state": 0,
+        "enddate": 1644295140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271380,
+        "state": 2,
+        "enddate": 1644271440,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644295140,
+        "state": 0,
+        "enddate": 1644295380,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644295380,
+        "state": 1,
+        "enddate": 1644295740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271440,
+        "state": 2,
+        "enddate": 1644271500,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644295740,
+        "state": 1,
+        "enddate": 1644296340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271500,
+        "state": 2,
+        "enddate": 1644271560,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644296340,
+        "state": 1,
+        "enddate": 1644296940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271560,
+        "state": 2,
+        "enddate": 1644271620,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644296940,
+        "state": 1,
+        "enddate": 1644297540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271620,
+        "state": 2,
+        "enddate": 1644271680,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644297540,
+        "state": 1,
+        "enddate": 1644298140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271680,
+        "state": 2,
+        "enddate": 1644271740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644298140,
+        "state": 1,
+        "enddate": 1644298560,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644298560,
+        "state": 2,
+        "enddate": 1644298740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269040,
+        "state": 0,
+        "enddate": 1644269100,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271740,
+        "state": 2,
+        "enddate": 1644271800,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644298740,
+        "state": 2,
+        "enddate": 1644299220,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644299220,
+        "state": 1,
+        "enddate": 1644299340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271800,
+        "state": 2,
+        "enddate": 1644271860,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644299340,
+        "state": 1,
+        "enddate": 1644299940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271860,
+        "state": 2,
+        "enddate": 1644271920,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644299940,
+        "state": 0,
+        "enddate": 1644300300,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644300300,
+        "state": 1,
+        "enddate": 1644300540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271920,
+        "state": 2,
+        "enddate": 1644271980,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644300540,
+        "state": 1,
+        "enddate": 1644301020,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644271980,
+        "state": 2,
+        "enddate": 1644272340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269100,
+        "state": 0,
+        "enddate": 1644269160,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644272340,
+        "state": 2,
+        "enddate": 1644272940,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269160,
+        "state": 0,
+        "enddate": 1644269220,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644272940,
+        "state": 2,
+        "enddate": 1644273540,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269220,
+        "state": 0,
+        "enddate": 1644269280,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644273540,
+        "state": 2,
+        "enddate": 1644274140,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644269280,
+        "state": 0,
+        "enddate": 1644269340,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      },
+      {
+        "startdate": 1644274140,
+        "state": 2,
+        "enddate": 1644274740,
+        "model": "Aura Sensor V2",
+        "hash_deviceid": "d313aa30ef6f310132fe53ab0b08ad7ba504f069",
+        "model_id": 63
+      }
+    ],
+    "model": 32
+  }
+}

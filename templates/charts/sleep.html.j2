@@ -1,0 +1,40 @@
+<script>
+{% if day.sleeps %}
+{% set sleep_wt = day.sleeps|selectattr("provider", "eq", "withings")|list|first %}
+const sleepWTCtx = document.getElementById('sleepWT_chart').getContext('2d');
+const sleepWTChart = new Chart(sleepWTCtx, {
+    type: 'bar',
+    data: {
+        datasets: {{ sleep_wt.phases|sleep_phases("withings") }},
+    },
+    options: {
+        scales: {
+            x: {
+                type: 'time'
+            },
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+{% set sleep_gr = day.sleeps|selectattr("provider", "eq", "garmin")|list|first %}
+const sleepGRCtx = document.getElementById('sleepGR_chart').getContext('2d');
+const sleepGRChart = new Chart(sleepGRCtx, {
+    type: 'bar',
+    data: {
+        datasets: {{ sleep_gr.phases|sleep_phases("garmin") }},
+    },
+    options: {
+        scales: {
+            x: {
+                type: 'time'
+            },
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+{% endif %}
+</script>
