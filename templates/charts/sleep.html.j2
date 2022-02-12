@@ -1,7 +1,7 @@
 <script>
 {% if day.sleeps %}
 {% set sleep_wt = day.sleeps|selectattr("provider", "eq", "withings")|list|first %}
-{% if sleep_wt.phases %}
+{% if sleep_wt %}
 const sleepWTCtx = document.getElementById('sleepWT_chart').getContext('2d');
 const sleepWTChart = new Chart(sleepWTCtx, {
     type: 'bar',
@@ -22,7 +22,7 @@ const sleepWTChart = new Chart(sleepWTCtx, {
 {% endif %}
 
 {% set sleep_gr = day.sleeps|selectattr("provider", "eq", "garmin")|list|first %}
-{% if sleep_gr.phases %}
+{% if sleep_gr %}
 const sleepGRCtx = document.getElementById('sleepGR_chart').getContext('2d');
 const sleepGRChart = new Chart(sleepGRCtx, {
     type: 'bar',
