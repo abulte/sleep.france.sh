@@ -138,7 +138,7 @@ def sleep_phases(phases, provider):
                 "backgroundColor": conf["color"],
                 "barPercentage": 1,
                 "categoryPercentage": 1,
-                "inflateAmount": 1,
+                "inflateAmount": 2,
                 "data": [{"x": f["startdate"] * 1000, "y": 1} for f in filled if f["state"] == i],
             })
     elif provider == "garmin":
