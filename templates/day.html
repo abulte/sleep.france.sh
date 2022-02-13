@@ -18,7 +18,11 @@
         </li>
     </ul>
     <div class="d-flex justify-content-center">
-        <small><a href="{{ url_for('day_view', day=today) }}">Aujourd'hui</a></small>
+        <small>
+            <a href="{{ url_for('day_summary', day=day.date) }}">Données</a>
+            |
+            <a href="{{ url_for('day_view', day=today) }}">Aujourd'hui</a>
+        </small>
     </div>
 </nav>
 <form method="POST">
