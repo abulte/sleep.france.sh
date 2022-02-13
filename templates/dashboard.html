@@ -25,6 +25,11 @@ document.addEventListener("DOMContentLoaded", function() {
         initialView: "dayGridMonth",
         themeSystem: "bootstrap5",
         locale: "fr",
+        headerToolbar: {
+            left: 'dayGridMonth,timeGridWeek,timeGridDay',
+            center: 'title',
+            right: 'today prev,next'
+        },
         eventSources: [
             {
                 url: "{{ url_for('api.calendar') }}",

@@ -1,6 +1,16 @@
-<script>
-{% if day.sleeps %}
 {% set sleep_wt = day.sleeps|selectattr("provider", "eq", "withings")|list|first %}
+{% set sleep_gr = day.sleeps|selectattr("provider", "eq", "garmin")|list|first %}
+
+{% if sleep_wt %}
+<canvas id="sleepWT_chart" width="400" height="100"></canvas>
+<hr>
+{% endif %}
+{% if sleep_gr %}
+<canvas id="sleepGR_chart" width="400" height="100"></canvas>
+<hr>
+{% endif %}
+
+<script>
 {% if sleep_wt %}
 const sleepWTCtx = document.getElementById('sleepWT_chart').getContext('2d');
 const sleepWTChart = new Chart(sleepWTCtx, {
@@ -21,7 +31,6 @@ const sleepWTChart = new Chart(sleepWTCtx, {
 });
 {% endif %}
 
-{% set sleep_gr = day.sleeps|selectattr("provider", "eq", "garmin")|list|first %}
 {% if sleep_gr %}
 const sleepGRCtx = document.getElementById('sleepGR_chart').getContext('2d');
 const sleepGRChart = new Chart(sleepGRCtx, {
@@ -40,6 +49,5 @@ const sleepGRChart = new Chart(sleepGRCtx, {
         }
     }
 });
-{% endif %}
 {% endif %}
 </script>

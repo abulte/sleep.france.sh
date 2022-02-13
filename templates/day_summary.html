@@ -19,7 +19,7 @@
     </ul>
     <div class="d-flex justify-content-center">
         <small>
-            <a href="{{ url_for('day_view', day=day.date) }}">Formulaire</a>
+            <a href="{{ url_for('day_view', day=day.date) }}">Impressions</a>
             |
             <a href="{{ url_for('day_summary', day=today) }}">Aujourd'hui</a>
         </small>
@@ -31,10 +31,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0/dist/chartjs-adapter-luxon.min.js" integrity="sha256-tOhXNe/Ue+TjR33s/CryFYOGMwNfkTjTuvM4LEOAHzc=" crossorigin="anonymous"></script>
 
 {% if day.sleeps %}
-<canvas id="sleepWT_chart" width="400" height="200"></canvas>
-<hr>
-<canvas id="sleepGR_chart" width="400" height="200"></canvas>
-<hr>
 {% include "charts/sleep.html.j2" %}
 {% endif %}
 {% if day.stresses %}
