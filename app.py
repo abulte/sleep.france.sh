@@ -69,11 +69,11 @@ def day_view(day):
             day.save()
         kwargs = {
             "notes": request.form.get("notes"),
-            "alcohol_doses": request.form.get("alcohol_doses"),
+            "alcohol_doses": request.form.get("alcohol_doses") or None,
             "mood": request.form.get("mood"),
             "tiredness_morning": request.form.get("tiredness_morning"),
             "tiredness_evening": request.form.get("tiredness_evening"),
-            "nap_minutes": request.form.get("nap_minutes"),
+            "nap_minutes": request.form.get("nap_minutes") or None,
             "office": request.form.get("office") == "yes",
             "vacation": request.form.get("vacation") == "yes",
         }
