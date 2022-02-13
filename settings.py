@@ -4,6 +4,7 @@ SECRET_KEY = os.environ.get("FLASK_SECRET_KEY")
 DATABASE = os.environ.get("DATABASE_URL")
 
 SECURITY_PASSWORD_SALT = os.environ.get("FLASK_SECRET_KEY")
+SECURITY_POST_LOGIN_VIEW = "dashboard"
 
 GARMIN_CLIENT_ID = os.environ.get("GARMIN_CLIENT_ID")
 GARMIN_CLIENT_SECRET = os.environ.get("GARMIN_CLIENT_SECRET")

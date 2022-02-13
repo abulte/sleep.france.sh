@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from flask import Blueprint, request, current_app
+from flask import Blueprint, request, current_app, jsonify, url_for
 from pytz import timezone, utc
 
 from models import Sleep, User, Day, Stress
@@ -149,3 +149,39 @@ def api_sleep_withings():
         current_app.logger.debug(f"Updated sleep {sleep_obj.id}")
 
     return "ok", 200
+
+
+@bp.route("/calendar")
+def calendar():
+    cal = request.args["calendar"]
+    start = datetime.fromisoformat(request.args["start"]).astimezone(utc)
+    end = datetime.fromisoformat(request.args["end"]).astimezone(utc)
+    days = Day.select().where(
+        Day.date >= start,
+        Day.date < end + timedelta(days=1)
+    )
+
+    data = {}
+    if cal == "sleep":
+        data = [{
+            "id": f"sleep-{d.date}",
+            "start": d.date.isoformat(),
+            "title": "Sommeil",
+            "url": url_for("day_summary", day=d.date),
+        } for d in days if d.sleeps]
+    elif cal == "stress":
+        data = [{
+            "id": f"stress-{d.date}",
+            "start": d.date.isoformat(),
+            "title": "Batterie",
+            "url": url_for("day_summary", day=d.date),
+        } for d in days if d.stresses]
+    elif cal == "mood":
+        data = [{
+            "id": f"mood-{d.date}",
+            "start": d.date.isoformat(),
+            "title": "Impressions",
+            "url": url_for("day_view", day=d.date),
+        } for d in days if d.tiredness_morning]
+
+    return jsonify(data)

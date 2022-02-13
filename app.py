@@ -52,6 +52,11 @@ def debug_page():
     return render_template("debug.html", payload=r.json())
 
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html", today=date.today())
+
+
 @app.route("/day/today")
 @auth_required()
 def today():
