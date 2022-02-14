@@ -66,6 +66,11 @@ class Day(BaseModel):
                 day.save()
             return day
 
+    def sleep_score(self):
+        return round(
+            sum([s.computed_score() for s in self.sleeps]) / len(self.sleeps) / 100
+        )
+
 
 class Sleep(BaseModel):
     day = pw.ForeignKeyField(Day, backref="sleeps")
@@ -90,6 +95,17 @@ class Sleep(BaseModel):
             sleep = cls(day=day, provider=provider, **data)
             sleep.save()
         return sleep
+
+    def computed_score(self):
+        """https://github.com/abulte/sleep.france.sh/issues/1"""
+        # TODO: maybe use min base values for ideal instead of mean
+        ideal_duration = 8 * 3600
+        sleep_gain = self.duration_total - ideal_duration
+        ideal_deep = self.duration_total * 10 / 100
+        deep_gain = self.duration_deep - ideal_deep
+        ideal_rem = self.duration_total * 22.5 / 100
+        rem_gain = self.duration_rem - ideal_rem
+        return sleep_gain + deep_gain + rem_gain
 
 
 class Stress(BaseModel):

@@ -166,7 +166,7 @@ def calendar():
         data = [{
             "id": f"sleep-{d.date}",
             "start": d.date.isoformat(),
-            "title": "Sommeil",
+            "title": f"😴 {d.sleep_score()}",
             "url": url_for("day_summary", day=d.date),
         } for d in days if d.sleeps]
     elif cal == "stress":
