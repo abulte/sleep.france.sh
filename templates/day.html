@@ -9,7 +9,7 @@
             </a>
         </li>
         <li class="page-item {% if day.date == today %}active{% endif %}">
-            <span class="page-link">{{ day.date }}</span>
+            <span class="page-link">{{ day.date }}</span>
         </li>
         <li class="page-item">
             <a class="page-link" href="{{ url_for('day_view', day=day.date|datedelta(1)) }}">
@@ -99,11 +99,11 @@
     </div>
     <div class="mb-3">
         <label for="alcohol_doses" class="form-label col-form-label-lg">Alcool (doses)</label>
-        <input value="{{ day.alcohol_doses }}" class="form-control form-control-lg" id="alcohol_doses" type="number" name="alcohol_doses">
+        <input value="{{ day.alcohol_doses }}" class="form-control form-control-lg" id="alcohol_doses" type="number" name="alcohol_doses">
     </div>
     <div class="mb-3">
         <label for="nap_minutes" class="form-label col-form-label-lg">Sieste (minutes)</label>
-        <input value="{{ day.nap_minutes }}" class="form-control form-control-lg" id="nap_minutes" type="number" name="nap_minutes">
+        <input value="{{ day.nap_minutes }}" class="form-control form-control-lg" id="nap_minutes" type="number" name="nap_minutes">
     </div>
     <div class="mb-3">
         <label for="notes" class="form-label col-form-label-lg">Notes</label>
