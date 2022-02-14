@@ -173,14 +173,14 @@ def calendar():
         data = [{
             "id": f"stress-{d.date}",
             "start": d.date.isoformat(),
-            "title": "Batterie",
+            "title": f"⚡️ {d.battery_score()}",
             "url": url_for("day_summary", day=d.date),
         } for d in days if d.stresses]
     elif cal == "mood":
         data = [{
             "id": f"mood-{d.date}",
             "start": d.date.isoformat(),
-            "title": "Impressions",
+            "title": "📝 Journal",
             "url": url_for("day_view", day=d.date),
         } for d in days if d.tiredness_morning]
 

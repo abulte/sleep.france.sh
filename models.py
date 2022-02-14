@@ -1,5 +1,8 @@
+from statistics import mean
+
 import peewee as pw
 
+from flask import current_app
 from flask_security import UserMixin, RoleMixin, PeeweeUserDatastore, current_user
 from playhouse.flask_utils import FlaskDB
 from playhouse.postgres_ext import BinaryJSONField
@@ -71,6 +74,11 @@ class Day(BaseModel):
             sum([s.computed_score() for s in self.sleeps]) / len(self.sleeps) / 100
         )
 
+    def battery_score(self):
+        return round(
+            mean([s.computed_battery() for s in self.stresses])
+        )
+
 
 class Sleep(BaseModel):
     day = pw.ForeignKeyField(Day, backref="sleeps")
@@ -128,6 +136,12 @@ class Stress(BaseModel):
             stress = cls(day=day, provider=provider, **data)
             stress.save()
         return stress
+
+    def computed_battery(self):
+        if not self.battery_values:
+            current_app.logger.warning(f"No battery for stress {self.id}, using 50 as default")
+            return 50
+        return mean(self.battery_values.values())
 
 
 def init_app(app):
