@@ -54,12 +54,12 @@ def debug_page():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html", today=date.today())
+    return render_template("dashboard.html")
 
 
 @app.route("/day/today")
 @auth_required()
-def today():
+def day_today():
     return redirect(url_for("day_view", day=date.today()))
 
 

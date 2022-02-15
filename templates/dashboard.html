@@ -3,10 +3,10 @@
 {% block content %}
 <ul class="nav mb-3">
     <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('day_view', day=today) }}">Mon journal du jour</a>
+        <a class="nav-link" href="{{ url_for('day_today') }}">Mon journal du jour</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('day_summary', day=today) }}">Mes données aujourd'hui</a>
+        <a class="nav-link" href="{{ url_for('day_summary_today') }}">Mes données aujourd'hui</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ url_for('account') }}">Mon compte</a>
@@ -31,20 +31,21 @@ document.addEventListener("DOMContentLoaded", function() {
             right: 'today prev,next'
         },
         eventSources: [
+            // https://coolors.co/palette/ef476f-ffd166-06d6a0-118ab2-073b4c
             {
                 url: "{{ url_for('api.calendar') }}",
-                color: "yellow",
+                color: "#ffd166",
                 extraParams: {calendar: "sleep"},
                 textColor: "black",
             },
             {
                 url: "{{ url_for('api.calendar') }}",
-                color: "blue",
+                color: "#118ab2",
                 extraParams: {calendar: "mood"},
             },
             {
                 url: "{{ url_for('api.calendar') }}",
-                color: "red",
+                color: "#ef476f",
                 extraParams: {calendar: "stress"},
             },
         ]
