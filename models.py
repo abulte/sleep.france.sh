@@ -46,7 +46,7 @@ class UserRoles(BaseModel):
 class Day(BaseModel):
     user = pw.ForeignKeyField(User, backref="days")
     date = pw.DateField(unique=True)
-    notes = pw.CharField(null=True)
+    notes = pw.TextField(null=True)
     alcohol_doses = pw.IntegerField(null=True)
     mood = pw.IntegerField(null=True)
     tiredness_morning = pw.IntegerField(null=True)
