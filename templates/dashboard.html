@@ -42,7 +42,11 @@ document.addEventListener("DOMContentLoaded", function() {
         options: {
             scales: {
                 x: {
-                    type: "time"
+                    type: "time",
+                    // fixes a weird bug on wide displays
+                    time: {
+                        unit: "day"
+                    }
                 },
                 y: {
                     beginAtZero: true
@@ -59,13 +63,14 @@ function viewDidMount(args) {
     var qargs = new URLSearchParams()
     qargs.append("start", args.view.activeStart.toISOString().slice(0, -1))
     qargs.append("end", args.view.activeEnd.toISOString().slice(0, -1))
-    Array("stress", "sleep").forEach(cal => {
+    Promise.all(Array("stress", "sleep").map(cal => {
         qargs.set("calendar", cal)
-        fetch(baseUrl + "?" + qargs.toString()).then(res => res.json()).then(res => {
+        return fetch(baseUrl + "?" + qargs.toString()).then(res => res.json()).then(res => {
             data = res.map(d => {return {x: d.start, y: d.value}})
             chart.data.datasets.find(d => d.id === cal).data = data
-            chart.update()
         })
+    })).then(() => {
+        chart.update()
     })
 }
 
@@ -77,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
         themeSystem: "bootstrap5",
         locale: "fr",
         headerToolbar: {
-            left: "dayGridMonth,timeGridWeek,timeGridDay",
+            left: "dayGridMonth,timeGridWeek",
             center: "title",
             right: "today prev,next"
         },
