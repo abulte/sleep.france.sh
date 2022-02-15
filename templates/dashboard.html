@@ -14,21 +14,72 @@
 </ul>
 <section>
     <div id="calendar"></div>
+    <canvas id="chart"></canvas>
 </section>
 {% endblock %}
 
 {% block extrajs %}
 <script>
+var chart
+var baseUrl = "{{ url_for('api.calendar') }}"
+document.addEventListener("DOMContentLoaded", function() {
+    var chartCtx = document.getElementById("chart").getContext("2d");
+    chart = new Chart(chartCtx, {
+        type: "bar",
+        data: {
+            datasets: [{
+                id: "stress",
+                label: "Battery",
+                data: [],
+                backgroundColor: "#ef476f",
+            }, {
+                id: "sleep",
+                label: "Sleep",
+                data: [],
+                backgroundColor: "#ffd166",
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: "time"
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+})
+
+/**
+ * Update chart when calendar view changes
+ */
+function viewDidMount(args) {
+    var qargs = new URLSearchParams()
+    qargs.append("start", args.view.activeStart.toISOString().slice(0, -1))
+    qargs.append("end", args.view.activeEnd.toISOString().slice(0, -1))
+    Array("stress", "sleep").forEach(cal => {
+        qargs.set("calendar", cal)
+        fetch(baseUrl + "?" + qargs.toString()).then(res => res.json()).then(res => {
+            data = res.map(d => {return {x: d.start, y: d.value}})
+            chart.data.datasets.find(d => d.id === cal).data = data
+            chart.update()
+        })
+    })
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     var calendarEl = document.getElementById("calendar")
     var calendar = new FullCalendar.Calendar(calendarEl, {
+        datesSet: viewDidMount,
         initialView: "dayGridMonth",
         themeSystem: "bootstrap5",
         locale: "fr",
         headerToolbar: {
-            left: 'dayGridMonth,timeGridWeek,timeGridDay',
-            center: 'title',
-            right: 'today prev,next'
+            left: "dayGridMonth,timeGridWeek,timeGridDay",
+            center: "title",
+            right: "today prev,next"
         },
         eventSources: [
             // https://coolors.co/palette/ef476f-ffd166-06d6a0-118ab2-073b4c
@@ -53,6 +104,9 @@ document.addEventListener("DOMContentLoaded", function() {
     calendar.render()
 })
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js" integrity="sha256-eWGhq5jRZ5QSi+PQuJt0eg4+hGCTwtsR9Qo+mC6Lyco=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0/dist/chartjs-adapter-luxon.min.js" integrity="sha256-tOhXNe/Ue+TjR33s/CryFYOGMwNfkTjTuvM4LEOAHzc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js" integrity="sha256-YicH/8aE660iEnJtgll3vT54dJApy3XkYmqNfGVFEzA=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/locales-all.min.js" integrity="sha256-GcByKJnun2NoPMzoBsuCb4O2MKiqJZLlHTw3PJeqSkI=" crossorigin="anonymous"></script>
 {% endblock %}

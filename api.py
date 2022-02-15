@@ -167,6 +167,7 @@ def calendar():
             "id": f"sleep-{d.date}",
             "start": d.date.isoformat(),
             "title": f"😴 {d.sleep_score()}",
+            "value": d.sleep_score(),
             "url": url_for("day_summary", day=d.date),
         } for d in days if d.sleeps]
     elif cal == "stress":
@@ -174,6 +175,7 @@ def calendar():
             "id": f"stress-{d.date}",
             "start": d.date.isoformat(),
             "title": f"⚡️ {d.battery_score()}",
+            "value": d.battery_score(),
             "url": url_for("day_summary", day=d.date),
         } for d in days if d.stresses]
     elif cal == "mood":
