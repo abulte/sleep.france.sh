@@ -1,0 +1,13 @@
+{
+  "prerun": "import app; app.app.app_context().push()",
+  "directory": "migrations",
+  "history": "migratehistory",
+  "models": [
+    "models.Role",
+    "models.User",
+    "models.UserRoles",
+    "models.Day",
+    "models.Sleep",
+    "models.Stress"
+  ]
+}
