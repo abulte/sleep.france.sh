@@ -20,10 +20,11 @@ app.config.from_pyfile("settings.py")
 init_models(app)
 oauth.init_app(app)
 security = Security(app, app.user_datastore)
+
+app.url_map.converters["isodate"] = ISODateConverter
 app.register_blueprint(cli_bp)
 app.register_blueprint(api_bp)
 
-app.url_map.converters["isodate"] = ISODateConverter
 
 
 @app.route("/")

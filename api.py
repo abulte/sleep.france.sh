@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 
 from flask import Blueprint, request, current_app, jsonify, url_for
 from flask_security import auth_required
+from playhouse.shortcuts import model_to_dict
+from playhouse.flask_utils import get_object_or_404
 from pytz import timezone, utc
 
 from models import Sleep, User, Day, Stress
@@ -190,3 +192,10 @@ def calendar():
         } for d in days if d.tiredness_morning]
 
     return jsonify(data)
+
+
+@auth_required
+@bp.route("/day/<isodate:day>")
+def day_api(day):
+    day = get_object_or_404(Day, (Day.date == day))
+    return jsonify(model_to_dict(day, backrefs=True, exclude=(Day.user, )))
