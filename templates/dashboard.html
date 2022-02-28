@@ -14,7 +14,7 @@
 </ul>
 <section>
     <div id="calendar"></div>
-    <canvas id="chart"></canvas>
+    <canvas id="summary_chart"></canvas>
 </section>
 {% endblock %}
 
@@ -23,8 +23,8 @@
 var chart
 var baseUrl = "{{ url_for('api.calendar') }}"
 document.addEventListener("DOMContentLoaded", function() {
-    var chartCtx = document.getElementById("chart").getContext("2d");
-    chart = new Chart(chartCtx, {
+    var summaryChartCtx = document.getElementById("summary_chart").getContext("2d");
+    summaryChart = new Chart(summaryChartCtx, {
         type: "bar",
         data: {
             datasets: [{
@@ -67,10 +67,10 @@ function viewDidMount(args) {
         qargs.set("calendar", cal)
         return fetch(baseUrl + "?" + qargs.toString()).then(res => res.json()).then(res => {
             data = res.map(d => {return {x: d.start, y: d.value}})
-            chart.data.datasets.find(d => d.id === cal).data = data
+            summaryChart.data.datasets.find(d => d.id === cal).data = data
         })
     })).then(() => {
-        chart.update()
+        summaryChart.update()
     })
 }
 

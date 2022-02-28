@@ -57,10 +57,7 @@ class Day(BaseModel):
 
     @classmethod
     def get_or_create(cls, day, user, autosave=False):
-        kwargs = {
-            "user": user,
-            "date": day,
-        }
+        kwargs = {"user": user, "date": day}
         try:
             return cls.get(**kwargs)
         except cls.DoesNotExist:

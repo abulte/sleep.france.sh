@@ -16,7 +16,7 @@ const sleepWTCtx = document.getElementById('sleepWT_chart').getContext('2d');
 const sleepWTChart = new Chart(sleepWTCtx, {
     type: 'bar',
     data: {
-        datasets: {{ sleep_wt.phases|sleep_phases("withings") }},
+        datasets: {{ sleep_wt.phases|sleep_timeseries("withings") }},
     },
     options: {
         scales: {
@@ -36,7 +36,7 @@ const sleepGRCtx = document.getElementById('sleepGR_chart').getContext('2d');
 const sleepGRChart = new Chart(sleepGRCtx, {
     type: 'bar',
     data: {
-        datasets: {{ sleep_gr.phases|sleep_phases("garmin") }},
+        datasets: {{ sleep_gr.phases|sleep_timeseries("garmin") }},
     },
     options: {
         scales: {

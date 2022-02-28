@@ -123,9 +123,9 @@ def is_vacation(day):
     return day.vacation
 
 
-@app.template_filter("sleep_phases")
-def sleep_phases(phases, provider):
-    """Datasets for chart"""
+@app.template_filter("sleep_timeseries")
+def sleep_timeseries(phases, provider):
+    """Datasets for timeseries chart"""
     datasets = []
     filled = fill_phases(phases, provider)
     if provider == "withings":
@@ -170,7 +170,7 @@ def sleep_phases(phases, provider):
                 "backgroundColor": conf["color"],
                 "barPercentage": 1,
                 "categoryPercentage": 1,
-                "inflateAmount": 1,
+                "inflateAmount": 2,
                 "data": data,
             })
 

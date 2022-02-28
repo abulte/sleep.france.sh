@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 from flask import Blueprint, request, current_app, jsonify, url_for
+from flask_security import auth_required
 from pytz import timezone, utc
 
 from models import Sleep, User, Day, Stress
@@ -151,8 +152,10 @@ def api_sleep_withings():
     return "ok", 200
 
 
+@auth_required
 @bp.route("/calendar")
 def calendar():
+    """Calendar data for a given timespan and data type"""
     cal = request.args["calendar"]
     start = datetime.fromisoformat(request.args["start"]).astimezone(utc)
     end = datetime.fromisoformat(request.args["end"]).astimezone(utc)
