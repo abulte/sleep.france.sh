@@ -21,7 +21,7 @@ class Role(RoleMixin, BaseModel):
 
 
 class User(UserMixin, BaseModel):
-    email = pw.TextField()
+    email = pw.TextField(unique=True)
     password = pw.TextField()
     active = pw.BooleanField(default=True)
     fs_uniquifier = pw.TextField(null=False)

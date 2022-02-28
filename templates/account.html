@@ -4,6 +4,7 @@
 <section class="mb-3">
     <h2>Informations</h2>
     {{ current_user.email }}
+    <details><summary>Token API</summary><code>Authentication-Token: {{ current_user.get_auth_token() }}</code></details>
 </section>
 <section class="mb-3">
     <h2>Garmin connect</h2>
