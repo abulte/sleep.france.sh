@@ -194,8 +194,24 @@ def calendar():
     return jsonify(data)
 
 
+def serialize_day(day):
+    return model_to_dict(day, backrefs=True, exclude=(Day.user, ))
+
+
 @auth_required
 @bp.route("/day/<isodate:day>")
 def day_api(day):
     day = get_object_or_404(Day, (Day.date == day))
-    return jsonify(model_to_dict(day, backrefs=True, exclude=(Day.user, )))
+    return jsonify(serialize_day(day))
+
+
+@auth_required
+@bp.route("/days")
+def days_api():
+    start = datetime.fromisoformat(request.args["start"]).astimezone(utc)
+    end = datetime.fromisoformat(request.args["end"]).astimezone(utc)
+    days = Day.select().where(
+        Day.date >= start,
+        Day.date < end + timedelta(days=1)
+    )
+    return jsonify([serialize_day(d) for d in days])
