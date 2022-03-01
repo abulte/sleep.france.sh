@@ -2,16 +2,27 @@ import json
 
 from datetime import date, timedelta
 
+import sentry_sdk
+
 from flask import Flask, render_template, url_for, redirect, request
 from flask_security import Security, auth_required, current_user
+from sentry_sdk.integrations.flask import FlaskIntegration
 from werkzeug.exceptions import NotFound
 
 import oauth
+import settings
 
 from api import bp as api_bp
 from cli import bp as cli_bp
 from models import Day, init_app as init_models
 from utils import ISODateConverter
+
+if sentry_dsn := settings.SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=sentry_dsn,
+        integrations=[FlaskIntegration()],
+        traces_sample_rate=1.0,
+    )
 
 app = Flask(__name__)
 app.config.from_pyfile("settings.py")
@@ -24,7 +35,6 @@ security = Security(app, app.user_datastore)
 app.url_map.converters["isodate"] = ISODateConverter
 app.register_blueprint(cli_bp)
 app.register_blueprint(api_bp)
-
 
 
 @app.route("/")

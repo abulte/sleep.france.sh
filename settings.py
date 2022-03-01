@@ -2,6 +2,7 @@ import os
 
 SECRET_KEY = os.environ.get("FLASK_SECRET_KEY")
 DATABASE = os.environ.get("DATABASE_URL")
+SENTRY_DSN = os.environ.get("SENTRY_DSN")
 
 SECURITY_PASSWORD_SALT = os.environ.get("FLASK_SECRET_KEY")
 SECURITY_POST_LOGIN_VIEW = "dashboard"
