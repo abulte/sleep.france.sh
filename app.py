@@ -15,7 +15,7 @@ import settings
 from api import bp as api_bp
 from cli import bp as cli_bp
 from models import Day, init_app as init_models
-from utils import ISODateConverter
+from utils import ISODateConverter, ISODateJSONEncoder
 
 if sentry_dsn := settings.SENTRY_DSN:
     sentry_sdk.init(
@@ -24,7 +24,9 @@ if sentry_dsn := settings.SENTRY_DSN:
         traces_sample_rate=1.0,
     )
 
+
 app = Flask(__name__)
+app.json_encoder = ISODateJSONEncoder
 app.config.from_pyfile("settings.py")
 
 
