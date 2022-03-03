@@ -4,7 +4,6 @@ from contextlib import contextmanager
 
 from authlib.common.urls import add_params_to_qs
 from authlib.integrations.flask_client import OAuth
-from authlib.integrations.requests_client import OAuth2Session
 from flask import Blueprint, current_app, url_for, redirect, request
 from flask_security import auth_required, current_user
 
@@ -91,7 +90,6 @@ def login_oauth(provider):
 @bp.route("/authorize/<provider>")
 @auth_required()
 def authorize(provider):
-
     kwargs = get_withings_client_params({"action": "requesttoken"}) \
         if provider == "withings" else {}
     token = getattr(oauth, provider).authorize_access_token(**kwargs)
