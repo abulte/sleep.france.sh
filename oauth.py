@@ -3,6 +3,7 @@ import requests
 from contextlib import contextmanager
 
 from authlib.common.urls import add_params_to_qs
+from authlib.integrations.base_client import InvalidTokenError
 from authlib.integrations.flask_client import OAuth
 from flask import Blueprint, current_app, url_for, redirect, request
 from flask_security import auth_required, current_user
@@ -24,13 +25,13 @@ def token_update(provider, token, refresh_token=None, access_token=None):
             user = User.get(User.token[provider]["refresh_token"] == refresh_token)
         except User.DoesNotExist:
             current_app.logger.error(f"Failed token refresh for {provider}: {refresh_token}")
-            return
+            raise InvalidTokenError()
     elif access_token:
         try:
             user = User.get(User.token[provider]["access_token"] == access_token)
         except User.DoesNotExist:
             current_app.logger.error(f"Failed token update for {provider}: {access_token}")
-            return
+            raise InvalidTokenError()
     else:
         return
 
